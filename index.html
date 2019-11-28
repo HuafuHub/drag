@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: pink;
+      position: absolute;
+      left: 100px;
+      top: 100px;
+    }
+
+    div:active {
+      background-color: red;
+      cursor: grab;
+    }
+  </style>
+</head>
+
+<body>
+  <div></div>
+  <script>
+    var div = document.querySelector("div");
+    var divLeft = parseFloat(getComputedStyle(div).left);
+    var divTop = parseFloat(getComputedStyle(div).top);
+    div.onmousedown = function (e) {
+      if (e.button !== 0) {
+        return;
+      }
+      document.onmousemove = function (e) {
+        divLeft += e.movementX;
+        divTop += e.movementY;
+        if(divLeft < 0){
+          divLeft = 0;
+        }
+        if(divTop < 0){
+          divTop = 0;
+        }
+        div.style.left = divLeft + "px";
+        div.style.top = divTop + "px";
+      }
+      document.onmouseup = function (e) {
+        if (e.button === 0) {
+          document.onmousemove = null;
+        }
+        
+      }
+    }
+  </script>
+</body>
+
+</html>
